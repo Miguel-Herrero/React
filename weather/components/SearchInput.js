@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { StyleSheet, View, TextInput } from 'react-native';
 
 export default function SearchInput({ placeholder, onSubmit }) {
@@ -27,6 +29,15 @@ export default function SearchInput({ placeholder, onSubmit }) {
         onSubmitEditing={handleSubmitEditing} />
     </View>
   );
+}
+
+SearchInput.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  placeholder: PropTypes.string
+}
+
+SearchInput.defaultProps = {
+  placeholder: ''
 }
 
 const styles = StyleSheet.create({
