@@ -1,13 +1,44 @@
-import React from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Platform, Modal } from 'react-native';
 import Constants from 'expo-constants';
 
 import Feed from './screens/Feed';
+import Comments from './screens/Comments'
 
 export default function App() {
+  const [commentsForItem, setCommentsForItem] = useState({})
+  const [showModal, setShowModal] = useState(false)
+  const [selectedItemId, setSelectedItemId] = useState(null)
+
+  const openCommentScreen = id => {
+    setSelectedItemId(id)
+    setShowModal(true)
+  }
+
+  const closeCommentScreen = () => {
+    setShowModal(false)
+    setSelectedItemId(null)
+  }
+
   return (
     <View style={styles.container}>
-      <Feed style={styles.feed} />
+      <Feed
+        style={styles.feed}
+        commentsForItem={commentsForItem}
+        onPressComments={openCommentScreen}
+      />
+
+      <Modal
+        visible={showModal}
+        animationType='slide'
+        onRequestClose={closeCommentScreen}
+      >
+        <Comments
+          style={styles.comments}
+          comments={commentsForItem[selectedItemId] || []}
+          onClose={closeCommentScreen}
+        />
+      </Modal>
     </View>
   );
 }
@@ -20,6 +51,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   feed: {
+    flex: 1,
+    marginTop:
+      Platform.OS === 'android' || platformVersion < 11
+        ? Constants.statusBarHeight
+        : 0
+  },
+  comments: {
     flex: 1,
     marginTop:
       Platform.OS === 'android' || platformVersion < 11

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { fetchImages } from '../utils/api'
 import CardList from '../components/CardList'
 
-export default function Feed({ style }) {
+export default function Feed({ style, commentsForItem, onPressComments }) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const [items, setItems] = useState([])
@@ -35,13 +35,19 @@ export default function Feed({ style }) {
 
   return (
     <SafeAreaView style={style}>
-      <CardList items={items} />
+      <CardList
+        items={items}
+        commentsForItem={commentsForItem}
+        onPressComments={onPressComments}
+      />
     </SafeAreaView>
   )
 }
 
 Feed.propTypes = {
-  style: ViewPropTypes.style
+  style: ViewPropTypes.style,
+  commentsForItem: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  onPressComments: PropTypes.func.isRequired
 }
 
 Feed.defaultProps = {
