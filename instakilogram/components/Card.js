@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import AuthorRow from './AuthorRow';
 
-export default function Card({ fullName, image, linkText, onPressLinkText }) {
+function Card({ fullName, image, linkText, onPressLinkText }) {
   const [isLoading, setIsLoading] = useState(true)
 
   const handleLoad = () => {
@@ -48,3 +48,5 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0.02)'
     }
 })
+
+export default React.memo(Card)
