@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Platform, Modal } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { AsyncStorage, StyleSheet, View, Platform, Modal } from 'react-native';
 import Constants from 'expo-constants';
 
 import Feed from './screens/Feed';
-import Comments from './screens/Comments'
+import Comments from './screens/Comments';
+
+const ASYNC_STORAGE_COMMENTS_KEY = 'ASYNC_STORAGE_COMMENTS_KEY';
 
 export default function App() {
   const [commentsForItem, setCommentsForItem] = useState({})
@@ -29,7 +31,27 @@ export default function App() {
     }
 
     setCommentsForItem(updated)
+
+    try {
+      AsyncStorage.setItem(ASYNC_STORAGE_COMMENTS_KEY, JSON.stringify(updated))
+    } catch (error) {
+      console.log('Failed to save comment', text, 'for', selectedItemId)
+    }
   }
+
+  useEffect(( )=> {
+    async function fetchData() {
+      try {
+        const commentsForItem = await AsyncStorage.getItem(ASYNC_STORAGE_COMMENTS_KEY)
+
+        setCommentsForItem(commentsForItem ? JSON.parse(commentsForItem) : {})
+      } catch (error) {
+        console.log('Failed to load comments')
+      }
+    }
+
+    fetchData();
+  }, [setSelectedItemId])
 
   return (
     <View style={styles.container}>

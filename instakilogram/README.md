@@ -8,3 +8,4 @@ An Instagram-like app with an image feed and comments screen.
 - [Layout with Flexbox](https://facebook.github.io/react-native/docs/flexbox)
 - [`React.memo`](https://reactjs.org/docs/react-api.html#reactmemo) for re-rendering component if necessary
 - [Modal](https://facebook.github.io/react-native/docs/modal)
+- [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage)
