@@ -20,6 +20,17 @@ export default function App() {
     setSelectedItemId(null)
   }
 
+  const onSubmitComment = (text) => {
+    const comments = commentsForItem[selectedItemId] || []
+
+    const updated = {
+      ...commentsForItem,
+      [selectedItemId]: [...comments, text]
+    }
+
+    setCommentsForItem(updated)
+  }
+
   return (
     <View style={styles.container}>
       <Feed
@@ -37,6 +48,7 @@ export default function App() {
           style={styles.comments}
           comments={commentsForItem[selectedItemId] || []}
           onClose={closeCommentScreen}
+          onSubmitComment={onSubmitComment}
         />
       </Modal>
     </View>
