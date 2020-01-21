@@ -1,6 +1,6 @@
 # Weather
 
-A basic one-screen app that fetches weather temperature from user input.
+A basic one-screen app that fetches weather temperature from user input (background changes based on weather)
 
 ## What I learned
 - [Build with Expo](https://expo.io/)

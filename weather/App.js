@@ -40,7 +40,7 @@ export default function App() {
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <StatusBar barStyle='light-content' />
       <ImageBackground
-        source={getImageForWeather('Light Cloud')}
+        source={getImageForWeather(weather)}
         style={styles.imageContainer}
         imageStyle={styles.image}>
 
